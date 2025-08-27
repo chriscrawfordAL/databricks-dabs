@@ -1,0 +1,32 @@
+# The main job for dbx_dabs_demo.
+resources:
+  jobs:
+    dabs_cicd:
+      name: dabs_cicd
+      tasks:
+        - task_key: printLine
+          notebook_task:
+            notebook_path: /Workspace/DABs/databricks-dabs/notebooks/PrintLine
+            source: WORKSPACE
+      queue:
+        enabled: true
+      parameters:
+        - name: workspace
+          default: development
+      performance_target: PERFORMANCE_OPTIMIZED
+
+variables:
+  workspace:
+    description: Name of the workspace
+
+targets:
+  dev:
+    workspace:
+      host: https://adb-3438839487639471.11.azuredatabricks.net/
+    variables:
+      workspace: "development"
+  prod:
+    workspace:
+      host: https://e2-demo-field-eng.cloud.databricks.com/
+    variables:
+      workspace: "production"
